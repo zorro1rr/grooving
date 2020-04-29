@@ -1,6 +1,7 @@
 //variables for client ID and redirect URI
 const clientId = '5ac18e2dcacf4b9fba01cb5bc3be2240';
-const redirectUri = 'https://zorro1rr.github.io/Grooving/';
+// const redirectUri = 'https://zorro1rr.github.io/Grooving/';
+const redirectUri = 'http://localhost:3000';
 //variable that will hold user's access token
 let accessToken;
 

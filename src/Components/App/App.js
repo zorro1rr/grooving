@@ -36,16 +36,17 @@ addTrack(track) {
     //then set the state of the playlist to the tracks array of objects
     //where is tracks coming from??
     this.setState({playlistTracks: tracks});
+    console.log(this.state.playlistTracks);
   }
 
   //method for removing song from user's playlist
   removeTrack(track) {
     let tracks = this.state.playlistTracks;
     //look through the playlistTracks for see if the song has a matching id
-    //if it matches the the function !== is a false statement and it will be filtered out.
+    //if it matches the function !== is a false statement and it will be filtered out.
     tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
 //set the value of playlistTracks to the new filtered array, tracks
-  this.setState({playlistTracks :tracks});
+  this.setState({playlistTracks : tracks});
   }
 
   //method that allows users to change the name of their playlist

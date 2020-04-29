@@ -16,7 +16,7 @@ class Track extends React.Component {
 
     removeTrack(){
         //use onRemove method passed all the way down from App.js and pass track into it
-        this.props.onRemove(this.props.tracks)
+        this.props.onRemove(this.props.track)
     }
 
     renderAction() {
