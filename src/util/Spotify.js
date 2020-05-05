@@ -42,9 +42,8 @@ const Spotify = {
     search(term) {
         const accessToken = Spotify.getAccessToken();
         //start promise chain be returning GET request using fetch()
-        return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`,
-            //pass 2nd argument to fetch and add authorization header to the request and pass in accessToken
-            //in implicit grant flow request format
+            return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`,
+
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`

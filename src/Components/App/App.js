@@ -6,6 +6,8 @@ import Playlist from '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
 // import Logout from '../Logout/Logout';
 
+
+
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -13,7 +15,7 @@ class App extends React.Component {
     this.state = {
       searchResults: [],
       playlistName: 'playlist',
-      playlistTracks: []
+      playlistTracks: [],
     }
     //bind the methods that use state/setState to update the state
     this.addTrack = this.addTrack.bind(this);
@@ -26,6 +28,7 @@ class App extends React.Component {
   //method for adding song from the search results to the user's playlist
 addTrack(track) {
   let tracks = this.state.playlistTracks;
+  let searchTracks = this.state.searchResults;
   //check to see if song is already in playlistTracks state with track's id property
   if(tracks.find(savedTrack => savedTrack.id === track.id)) {
     //if it is then end the method
@@ -33,8 +36,13 @@ addTrack(track) {
   }
     //if new then push the new song to the array
     tracks.push(track);
+    //grab the index of selected track
+    let index = searchTracks.indexOf(track);
+    //remove the added track from the search results
+    searchTracks.splice(index, 1);
+    //update the state of the search results
+    this.setState({searchResults: searchTracks});
     //then set the state of the playlist to the tracks array of objects
-    //where is tracks coming from??
     this.setState({playlistTracks: tracks});
     console.log(this.state.playlistTracks);
   }
@@ -73,13 +81,27 @@ addTrack(track) {
   //method that updates searchResults with the user's search results from the Spotify API
   search(term){
     //pass in the search method from Spotify.js and use a promise
-    //to update the state of searchResults' to value result of the Spotify.search promise
     Spotify.search(term).then(searchResults => {
+      //to update the state of searchResults' to value result of the Spotify.search promise
       this.setState({searchResults: searchResults});
       console.log(searchResults);
+      localStorage.setItem('term', term);
+      console.log(localStorage.getItem('term'));
     });
   }
+
+  //method to repopulate input field after logging in or refreshing access token
+  componentDidMount () {
+    //grab input field and term in localStorage
+    const input = document.querySelector('input');
+    let term = localStorage.getItem('term');
+    //if a term was already provided set the input's value
+    if (term === undefined) return;
+    input.value = term;
+   }
  
+  
+
 
   render() {
   return (
