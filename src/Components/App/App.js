@@ -54,12 +54,17 @@ addTrack(track) {
   //method for removing song from user's playlist
   removeTrack(track) {
     let tracks = this.state.playlistTracks;
+    let searchTracks = this.state.searchResults;
     //look through the playlistTracks for see if the song has a matching id
     //if it matches the function !== is a false statement and it will be filtered out.
+    searchTracks.unshift(track);
     tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
 //set the value of playlistTracks to the new filtered array, tracks
+console.log(tracks)
+this.setState({searchResults: searchTracks});
   this.setState({playlistTracks : tracks});
   }
+
 
   //method that allows users to change the name of their playlist
   updatePlaylistName(name){
@@ -102,9 +107,7 @@ addTrack(track) {
       this.setState({previewUrl: previewUrl});
       console.log(this.state.previewUrl);
       if(!this.state.previewUrl){
-        console.log('after if', this.state.previewUrl);
         previewDiv.innerHTML = '<p> No preview available for this track </p>';
-        console.log('innerHTML');
       } else {
       previewDiv.innerHTML = `<object type="text/html" data="${this.state.previewUrl}" ></object>`;
       }
