@@ -53,6 +53,7 @@ const Spotify = {
         ).then(response => {
             return response.json();
         }).then(jsonResponse => {
+            console.log(jsonResponse);
             //make sure that some tracks actually exist
             if (!jsonResponse.tracks) {
                 return [];
@@ -67,6 +68,27 @@ const Spotify = {
             }));
         });
     },
+
+    previewTrack(track) {
+        const accessToken = Spotify.getAccessToken();
+        //start promise chain be returning GET request using fetch()
+           return fetch(`https://api.spotify.com/v1/tracks/${track}?market=US`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            }
+            //convert the response to JSON
+        ).then(response => {
+            return response.json();
+        }).then(jsonResponse => {
+            //make sure that some tracks actually exist
+            console.log(jsonResponse.preview_url);
+            return jsonResponse.preview_url;
+        });
+
+    },
+
     //method that writes the learner's custom playlight in this app to their Spotify account
     savePlaylist(name, trackUris) {
         //first make sure name and trackuris actually have values saved to them

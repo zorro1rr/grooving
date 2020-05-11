@@ -6,12 +6,17 @@ class SearchResults extends React.Component {
     
     render() {
         return (
+            <>
             <div className="SearchResults">
                 <h2>Results</h2>
-                <TrackList tracks={this.props.searchResults}
-                //pass onAdd from SearchResults to Tracklist
-                    onAdd={this.props.onAdd} />
+                <TrackList 
+                //keep passing the searchResults state down through props
+                tracks={this.props.searchResults}
+                previewUrl={this.props.previewUrl}
+                //pass onAdd and preview from SearchResults to Tracklist
+                 onAdd={this.props.onAdd} preview={this.props.preview} />
             </div>
+             </>
         );
     }
 }

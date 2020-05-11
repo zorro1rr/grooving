@@ -25,23 +25,26 @@
     cursor: pointer;
     width: 8.11rem;
     padding: .77rem 0;
-    border-radius: 54px;
-    background-color: #000000;
+    border-radius: 10px;
+    background-color: transparent;
     text-align: center;
     font-size: .833rem;
     transition: background-color .25s;
     border: 0px;
-    color:rgb(30, 215, 1);
+    color: black;
     font-weight: 600;
+    box-shadow: 5px 3px 17px 1px #3e3e3e, 
+    -5px -3px 10px 3px #ffffff;
   }
   
   .SearchButton:hover {
-    background-color: rgba(108, 65, 233, .7);
+    box-shadow: inset 13px 9px 20px -5px #a0a0a0;
   }
 
   @media only screen and (max-width: 1450px) {
     .SearchBar {
       margin: 0;
+      padding-top: 20%;
     }
   }
 

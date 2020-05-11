@@ -4,6 +4,8 @@ import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
+import Preview from '../Preview/Preview';
+
 // import Logout from '../Logout/Logout';
 
 
@@ -16,6 +18,7 @@ class App extends React.Component {
       searchResults: [],
       playlistName: 'playlist',
       playlistTracks: [],
+      previewUrl: ''
     }
     //bind the methods that use state/setState to update the state
     this.addTrack = this.addTrack.bind(this);
@@ -23,6 +26,7 @@ class App extends React.Component {
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.preview = this.preview.bind(this);
   }
 
   //method for adding song from the search results to the user's playlist
@@ -84,23 +88,42 @@ addTrack(track) {
     Spotify.search(term).then(searchResults => {
       //to update the state of searchResults' to value result of the Spotify.search promise
       this.setState({searchResults: searchResults});
-      console.log(searchResults);
+      console.log(this.state.searchResults);
       localStorage.setItem('term', term);
-      console.log(localStorage.getItem('term'));
     });
   }
 
-  //method to repopulate input field after logging in or refreshing access token
-  componentDidMount () {
-    //grab input field and term in localStorage
-    const input = document.querySelector('input');
-    let term = localStorage.getItem('term');
-    //if a term was already provided set the input's value
-    if (term === undefined) return;
-    input.value = term;
-   }
- 
-  
+  //method that allows user to preview song
+  preview(track){
+    //grab the id of selected track
+    let trackId = track.id;
+    const previewDiv = document.querySelector('.preview');
+    Spotify.previewTrack(trackId).then(previewUrl => {
+      this.setState({previewUrl: previewUrl});
+      console.log(this.state.previewUrl);
+      if(!this.state.previewUrl){
+        console.log('after if', this.state.previewUrl);
+        previewDiv.innerHTML = '<p> No preview available for this track </p>';
+        console.log('innerHTML');
+      } else {
+      previewDiv.innerHTML = `<object type="text/html" data="${this.state.previewUrl}" ></object>`;
+      }
+    });
+    
+  }
+
+  //repopulate inputfield
+  // componentDidMount() {
+  //   const input = document.querySelector('input');
+  //   let term = localStorage.getItem('term');
+  //   if(term === null){
+  //     console.log('no term');
+  //     return;
+  //   }
+  //   console.log(term);
+  //   input.value = term;
+    
+  // }
 
 
   render() {
@@ -110,8 +133,16 @@ addTrack(track) {
     <div className="App">
       {/* Pass all the methods down through the components */}
     
-      <SearchResults className="App-playlist" searchResults={this.state.searchResults} onAdd={this.addTrack} />
-      <SearchBar onSearch={this.search} />
+      <SearchResults className="App-playlist" 
+      searchResults={this.state.searchResults} 
+      onAdd={this.addTrack}
+      previewUrl={this.state.previewUrl} 
+      preview={this.preview} 
+      />
+      <div className="midDiv">
+      <SearchBar onSearch={this.search} searchTerm={this.state.searchTerm} />
+      <Preview />
+      </div>
       <Playlist className="App-playlist" playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} 
         onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} 
         onSave={this.savePlaylist}

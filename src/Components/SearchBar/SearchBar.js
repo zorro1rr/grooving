@@ -12,12 +12,13 @@ class SearchBar extends React.Component {
 
   //method that passes the state of term to onSearch passed down from App.js
 search(){
-  let searchTerm = localStorage.getItem('term');
-      
-     if(searchTerm === null) {
- this.props.onSearch(this.state.term);
-     }
-     this.props.onSearch(searchTerm);
+  // let searchTerm = localStorage.getItem('term');
+  //   if(!searchTerm) {
+      this.props.onSearch(this.state.term);
+    //   }
+    //   console.log(searchTerm);
+    //  this.props.onSearch(searchTerm);
+     
 };
 
 //method that sets the state of search bar's term to event target's value
@@ -31,9 +32,6 @@ handleTermChange(event){
      this.search();
    }
  }
-
-
-
 
     render(){
       

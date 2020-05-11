@@ -12,15 +12,15 @@ class TrackList extends React.Component {
                     //loop through the SearchResults Array's objests we set in App.js and set the keys
                 this.props.tracks.map(track => {
                     //for each object in the SearchResults Array return a seperate track component
-                    //the attribute value {track} will provide the entire object
-                    // with the name, artist, album, id
+                    //the attribute value {track} will provide the entire object with the name, artist, album, id
                         return <Track track={track}
                                     key={track.id} 
-                                    //pass onAdd from here to Track
+                                    previewUrl={this.props.previewUrl}
+                                    //pass onAdd from here to Track, onRemove, isRemoval and preview to track.js
                                     onAdd={this.props.onAdd} 
-                                    //pass onRemove and isRemoval from Tracklist component in Playlist.js
                                     onRemove={this.props.onRemove}
                                     isRemoval={this.props.isRemoval}
+                                    preview={this.props.preview}
                                     />
                     })
                 }

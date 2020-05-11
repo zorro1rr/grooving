@@ -7,6 +7,7 @@ class Track extends React.Component {
 
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
+        this.preview = this.preview.bind(this);
     }
 
     addTrack(){
@@ -16,16 +17,23 @@ class Track extends React.Component {
 
     removeTrack(){
         //use onRemove method passed all the way down from App.js and pass track into it
-        this.props.onRemove(this.props.track)
+        this.props.onRemove(this.props.track);
+    }
+
+    preview(){
+        this.props.preview(this.props.track)
     }
 
     renderAction() {
-        //step 27
         if (this.props.isRemoval) {
-             //add onClick attributes to the buttons to trigger remove and add methods
             return <button className="Track-action" onClick={this.removeTrack}>-</button>
         } else {
-            return <button className="Track-action" onClick={this.addTrack}>+</button>
+            return (
+                <>
+                <button className="Track-action" onClick={this.addTrack}>+</button>
+                <button className="Track-action" onClick={this.preview}>&#10148;</button>
+                </>
+            )
         }
     }
 

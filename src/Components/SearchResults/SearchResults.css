@@ -1,15 +1,21 @@
 .SearchResults {
-    width: 55vh;
-    max-height: 60vh;
-    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     overflow-y: scroll;
-    padding: .88rem;
-    background-color: rgba(30, 216, 1, 0.7);
-    box-shadow: 0 4px 2px 2px #000000;
+    width: 40vh;
+    max-height: 57vh;
+    padding: 2.27rem 1.16rem;
+    background-color: transparent;
+    box-shadow: 5px 8px 20px 6px #0c0c0c, -10px -7px 20px 7px #ffffff;
+    margin: 40px;
+    margin-top: 7%;
+    border-radius: 10px;
   }
 
   h2 {
     text-align: center;
+    margin: 0;
   }
   
   ::-webkit-scrollbar {
@@ -20,20 +26,20 @@
   @media only screen and (max-width: 1450px) {
     .SearchResults {
       width: 90%;
-      margin: 1% 2% 1% 2%;
+      margin: 6% 2% 1% 2%;
       padding: 2% 1% 5.5% 1%;
     }
     h2 {
       padding-top: 0;
-      margin-top: 0px;
     }
   }
 
   @media only screen and (max-width: 700px) {
     .SearchResults {
       margin-top: 20px;
-      height: 29%;
+      height: 31%;
       padding-right: 17px;
+      margin: 11% 2% 1% 2%;
     }
     
   }
