@@ -1,0 +1,48 @@
+.playlist {
+    text-align: left;
+    width: 25vh;
+    max-height: 100vh; 
+    background-color: transparent;
+    box-shadow: 4px 0px 15px 1px #0e0e0e;
+    color: black;
+    overflow-y: scroll;
+    z-index: 1;
+}
+h2 {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.playlistButton {
+    cursor: pointer;
+    width: 8.11rem;
+    padding: .77rem 0;
+    border-radius: 10px;
+    background-color: transparent;
+    text-align: center;
+    font-size: .833rem;
+    transition: background-color .25s;
+    border: 0px;
+    color: black;
+    font-weight: 600;
+    box-shadow: 5px 3px 17px 1px #3e3e3e, -5px -3px 10px 3px #ffffff;
+}
+
+.playlistButton:hover {
+    box-shadow: inset 13px 9px 20px -5px #a0a0a0;
+    background-color: green;
+}
+
+
+@media only screen and (max-width: 1450px) {
+    .playlist {
+        padding-right: 1%;
+        padding-left: 1%;
+    }
+}
+@media only screen and (max-width: 700px) {
+   .playlist {
+    margin: 1% 2% 1% 2%;
+    height: fit-content;
+   }
+}

@@ -5,6 +5,7 @@ import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
 import Preview from '../Preview/Preview';
+import Playlists from  '../Playlists/Playlists';
 
 // import Logout from '../Logout/Logout';
 
@@ -18,7 +19,6 @@ class App extends React.Component {
       searchResults: [],
       playlistName: 'playlist',
       playlistTracks: [],
-      previewUrl: ''
     }
     //bind the methods that use state/setState to update the state
     this.addTrack = this.addTrack.bind(this);
@@ -27,6 +27,7 @@ class App extends React.Component {
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
     this.preview = this.preview.bind(this);
+    this.loadPlaylist = this.loadPlaylist.bind(this);
   }
 
   //method for adding song from the search results to the user's playlist
@@ -104,16 +105,20 @@ this.setState({searchResults: searchTracks});
     let trackId = track.id;
     const previewDiv = document.querySelector('.preview');
     Spotify.previewTrack(trackId).then(previewUrl => {
-      this.setState({previewUrl: previewUrl});
-      console.log(this.state.previewUrl);
-      if(!this.state.previewUrl){
+      if(!previewUrl){
         previewDiv.innerHTML = '<p> No preview available for this track </p>';
       } else {
-      previewDiv.innerHTML = `<object type="text/html" data="${this.state.previewUrl}" ></object>`;
+        previewDiv.innerHTML = `<object type="text/html" data="${previewUrl}" ></object>`;
       }
     });
-    
   }
+
+  //method that pulls up user playlists
+  loadPlaylist(){
+    Spotify.getPlaylists().then(() => {
+    })
+  }
+ 
 
   //repopulate inputfield
   // componentDidMount() {
@@ -135,7 +140,7 @@ this.setState({searchResults: searchTracks});
 <h1>Gr<span className="highlight">oo</span>ving</h1>
     <div className="App">
       {/* Pass all the methods down through the components */}
-    
+      <Playlists loadPlaylists={this.loadPlaylist} playlists={this.state.playlists} />
       <SearchResults className="App-playlist" 
       searchResults={this.state.searchResults} 
       onAdd={this.addTrack}
@@ -145,6 +150,7 @@ this.setState({searchResults: searchTracks});
       <div className="midDiv">
       <SearchBar onSearch={this.search} searchTerm={this.state.searchTerm} />
       <Preview />
+      
       </div>
       <Playlist className="App-playlist" playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} 
         onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} 

@@ -86,8 +86,117 @@ const Spotify = {
             console.log(jsonResponse.preview_url);
             return jsonResponse.preview_url;
         });
-
     },
+
+    // getPlaylists () {
+    //         //variables: for current user's access token (grabbed from the method above)
+    //         const accessToken = Spotify.getAccessToken();
+    //         //for Authorization parameter in implicit grant flow request format
+    //         const headers = {
+    //             Authorization: `Bearer ${accessToken}`
+    //         };
+    //         //empty variable for user's ID
+    //         let userId;
+    //         //make request that returns user's Spotify username
+    //         return fetch(`https://api.spotify.com/v1/me`, {
+    //                 headers: headers
+    //             }
+    //             //convert response to JSON
+    //         ).then(response => response.json()
+    //             //save the response id to the user's ID variable
+    //         ).then(jsonResponse => {
+    //             userId = jsonResponse.id;
+    //             //Use user Id to fetch playlists
+    //             return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+    //                 headers: headers,
+    //                 })
+    //             }).then(response => response.json()
+    //             ).then(jsonResponse => {
+    //                 if (!jsonResponse.items) {
+    //                     return ["no saved playlist"]
+    //                   }
+    //                   //make variables so we can pass down the playlists name and the track list hrefs
+    //                   let playlists =  jsonResponse.items.map(playlist => {
+    //                       return playlist.name
+    //                   })
+    //                   let tracks = jsonResponse.items.map(track => {
+    //                     return track.tracks.href
+    //                   })
+    //                   //combine the two variables into an array to pass into loadplaylists() on App.js
+    //                 let playlistTracks = [playlists, tracks];
+    //                   return playlistTracks
+    //                 })
+    //             },
+
+                getPlaylists() {
+                    // variables: for current user's access token (grabbed from the method above)
+                    const playlistDiv = document.querySelector('.playlist');
+                    const accessToken = Spotify.getAccessToken()
+                    // for Authorization parameter in implicit grant flow request format
+                    const headers = {
+                      Authorization: `Bearer ${accessToken}`,
+                    }
+                    // empty variable for user's ID
+                    let userId
+                    // make request that returns user's Spotify username
+                    return fetch(
+                      `https://api.spotify.com/v1/me`,
+                      {
+                        headers: headers,
+                      },
+                      // convert response to JSON
+                    )
+                      .then(
+                        response => response.json(),
+                        // save the response id to the user's ID variable
+                      )
+                      .then(jsonResponse => {
+                        userId = jsonResponse.id
+                        // Use user Id to fetch playlists
+                        return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+                          headers: headers,
+                        })
+                      })
+                      .then(response => response.json())
+                      .then(jsonResponse => {
+                        if (!jsonResponse.items) {
+                          return ["no saved playlist"]
+                        }
+                        // make variables so we can pass down the playlists name and the track list hrefs
+                        let playlists =  jsonResponse.items.map(playlist => {
+                        return playlist.name
+                      })
+                        let tracks = jsonResponse.items.map(track => {
+                          return track.tracks.href
+                        })  
+                        const fetchPromises = tracks.map(function(href) {
+                          return fetch(href, {
+                            headers: headers,
+                          })
+                        })
+                        //use setTime to avoid render errors due to hrefs loading at different times
+                        setTimeout(() => { 
+                       fetchPromises.forEach(fProm => {
+                              fProm
+                                .then(response => response.json())
+                                .then(jsonResponse => {
+    
+                            const tracklist = jsonResponse.items.map(tracklist => {
+                                     return tracklist.track.name
+                                    })      
+                                    const playlist = playlists.shift();       
+                                    playlistDiv.innerHTML += '<h2>' +  playlist + '</h2>' +
+                                    '<ul>' + tracklist.map(track => {
+                                    return '<li>' + track + '</li>'
+                                    }).join("") + '</ul>';
+                                })
+                            })
+                        }, 200);  
+            
+                          })          
+                      },
+                  
+
 
     //method that writes the learner's custom playlight in this app to their Spotify account
     savePlaylist(name, trackUris) {
