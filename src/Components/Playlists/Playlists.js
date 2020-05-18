@@ -3,24 +3,37 @@ import './Playlists.css';
 
 
 class Playlists extends React.Component {
-constructor(props){
-    super(props)
+//     constructor(props) {
+//     super(props);
 
-    this.showPlaylists =  this.showPlaylists.bind(this);
-}
+//     this.renderTracks = this.renderTracks.bind(this);
+// }
 
 
-showPlaylists () {
+
+componentDidMount(){
     this.props.loadPlaylists();
 }
 
+// renderTracks () {
+//     //getting props.tracks here
+//     console.log('getting the state(now props) in Playlist.js', this.props.tracks);
+//     const playlist = this.props.tracks.map(playlist=> {
+//         console.log('not working', playlist);
+//         return playlist;
+//     });
+//     console.log(playlist);
+//     return playlist;
+// }
+ 
     render() {
         return (
             <div className="playlist">
-                <button className="playlistButton" onClick={this.showPlaylists}>Fetch Playlists</button>
+                {/* {this.renderTracks()}
+                {this.props.tracks} */}
             </div>
         );
     }
 }
 
-export default Playlists
+export default Playlists;

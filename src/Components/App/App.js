@@ -19,6 +19,8 @@ class App extends React.Component {
       searchResults: [],
       playlistName: 'playlist',
       playlistTracks: [],
+      playlists: [],
+      tracks: [],
     }
     //bind the methods that use state/setState to update the state
     this.addTrack = this.addTrack.bind(this);
@@ -115,9 +117,57 @@ this.setState({searchResults: searchTracks});
 
   //method that pulls up user playlists
   loadPlaylist(){
-    Spotify.getPlaylists().then(() => {
+    const  playlistDiv = document.querySelector('.playlist');
+    Spotify.getPlaylists().then(playlist => {
+      
+      const playlists = playlist[0];
+      console.log(playlist, playlist[1]);
+      const accessToken = Spotify.getAccessToken();
+      const fetchPromises = playlist[1].map(function(href) {
+        return fetch(href, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
     })
-  }
+ //use setTime to avoid render errors due to hrefs loading at different times
+  })
+  
+  setTimeout(() => { 
+    
+    fetchPromises.forEach(fProm => {
+           fProm
+             .then(response => response.json())
+             .then(jsonResponse => {
+              let innerhtml = []
+         const tracklist = jsonResponse.items.map(tracklist => {
+                  return tracklist.track.name
+                 })   
+                 
+                playlistDiv.innerHTML += '<h2>' +  playlists.shift() + '</h2>' +
+                 '<ul>' + tracklist.map(track => {
+                 return '<li>' + track + '</li>'
+                 }).join("") + '</ul>';
+                 
+
+                //  //save the playlist names and tracks to a variable and push them the tracks state
+                // innerhtml += '<h2>' +  playlists.shift() + '</h2>' +
+                //  '<ul>' + tracklist.map(track => {
+                //  return '<li>' + track + '</li>'
+                //  }).join("") + '</ul>';
+                //  this.state.tracks.push(innerhtml);
+             })
+             
+         })
+        
+     }, 200);  
+     console.log('getting the  state in App.js', this.state.tracks);
+  })
+  
+}
+
+  // forgetPlaylist(){
+  //   Spotify.deletePlaylist();
+  // }
  
 
   //repopulate inputfield
@@ -138,9 +188,9 @@ this.setState({searchResults: searchTracks});
   return (
 <div>
 <h1>Gr<span className="highlight">oo</span>ving</h1>
+<Playlists loadPlaylists={this.loadPlaylist} playlists={this.state.playlists} tracks={this.state.tracks} />
     <div className="App">
       {/* Pass all the methods down through the components */}
-      <Playlists loadPlaylists={this.loadPlaylist} playlists={this.state.playlists} />
       <SearchResults className="App-playlist" 
       searchResults={this.state.searchResults} 
       onAdd={this.addTrack}

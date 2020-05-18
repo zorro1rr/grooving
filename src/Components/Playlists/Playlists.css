@@ -1,12 +1,16 @@
 .playlist {
+    padding-top: 1%;
+    position: absolute;
     text-align: left;
     width: 25vh;
-    max-height: 100vh; 
+    height: 100vh; 
+    max-height: 100vh;
     background-color: transparent;
     box-shadow: 4px 0px 15px 1px #0e0e0e;
     color: black;
     overflow-y: scroll;
     z-index: 1;
+    margin-bottom: -1%;
 }
 h2 {
     text-align: left;
