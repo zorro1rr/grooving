@@ -22,6 +22,28 @@
       width: 0px;
       background: transparent;
   }
+
+  .disButton {
+    cursor: pointer;
+    width: 50%;
+    padding: .5rem 0;
+    border-radius: 10px;
+    border-width: 0px;
+    background-color: #d2d1cf8a;
+    text-align: center;
+    font-size: .83rem;
+    transition: background-color .25s;
+    color: #000000;
+    font-weight: 700;
+    box-shadow: 5px 5px 10px 0px #252525d1, -3px -3px 10px 3px #ffffffd9;
+    margin-top: -.3rem;
+    margin-bottom: .5rem;
+    display: none;
+  }
+
+  .disButton:hover {
+    box-shadow: inset 13px 9px 20px -5px #a0a0a0;
+  }
   
   @media only screen and (max-width: 1450px) {
     .SearchResults {
@@ -32,7 +54,15 @@
     h2 {
       padding-top: 0;
     }
+
   }
+  @media only screen and (max-width: 1150px) {
+
+    .disButton{
+      display: initial;
+    }
+}
+
 
   @media only screen and (max-width: 700px) {
     .SearchResults {

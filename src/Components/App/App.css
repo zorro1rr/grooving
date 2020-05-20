@@ -83,10 +83,30 @@ h2 {
   }
 }
 
+@media only screen and (max-width: 1750px) {
+  .App {
+    padding-left: 14%;
+  }
+  h1{
+    padding-left: 7%;
+  }
+}
+
+@media only screen and (max-width: 1150px) {
+  .App {
+    padding-left: 0;
+  }
+  h1{
+    padding-left: 0;
+  }
+}
+
+
 @media only screen and (max-width: 700px) {
   .App{
     flex-direction: column;
     background-position: right;
+    padding-left: 0 !important;
   }
 
   h1{

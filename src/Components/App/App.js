@@ -88,6 +88,7 @@ this.setState({searchResults: searchTracks});
         playlistTracks: []
       });
     });
+    window.location.reload();
   }
 
   //method that updates searchResults with the user's search results from the Spotify API
@@ -121,7 +122,7 @@ this.setState({searchResults: searchTracks});
     Spotify.getPlaylists().then(playlist => {
       
       const playlists = playlist[0];
-      console.log(playlist, playlist[1]);
+      console.log(playlists, playlist[1]);
       const accessToken = Spotify.getAccessToken();
       const fetchPromises = playlist[1].map(function(href) {
         return fetch(href, {
@@ -142,27 +143,24 @@ this.setState({searchResults: searchTracks});
          const tracklist = jsonResponse.items.map(tracklist => {
                   return tracklist.track.name
                  })   
-                 
-                playlistDiv.innerHTML += '<h2>' +  playlists.shift() + '</h2>' +
-                 '<ul>' + tracklist.map(track => {
-                 return '<li>' + track + '</li>'
-                 }).join("") + '</ul>';
-                 
 
-                //  //save the playlist names and tracks to a variable and push them the tracks state
-                // innerhtml += '<h2>' +  playlists.shift() + '</h2>' +
+                // playlistDiv.innerHTML += '<h2>' +  playlists.shift() + '</h2>' +
                 //  '<ul>' + tracklist.map(track => {
                 //  return '<li>' + track + '</li>'
                 //  }).join("") + '</ul>';
-                //  this.state.tracks.push(innerhtml);
+                 
+
+                // save the playlist names and tracks to a variable and push them the tracks state
+                innerhtml += '<h2>' +  playlists.shift() + '</h2>' +
+                 '<ul>' + tracklist.map(track => {
+                 return '<li>' + track + '</li>'
+                 }).join("") + '</ul>';
+                 this.state.tracks.push(innerhtml);
              })
-             
          })
-        
-     }, 200);  
+     }, 250);  
      console.log('getting the  state in App.js', this.state.tracks);
   })
-  
 }
 
   // forgetPlaylist(){
@@ -170,17 +168,17 @@ this.setState({searchResults: searchTracks});
   // }
  
 
-  //repopulate inputfield
+  // //repopulate inputfield
   // componentDidMount() {
   //   const input = document.querySelector('input');
   //   let term = localStorage.getItem('term');
-  //   if(term === null){
-  //     console.log('no term');
+  //   if(!term === null){
+  //     console.log(term);
+  //     input.value = term;
+  //     // localStorage.removeItem('term');
   //     return;
-  //   }
-  //   console.log(term);
-  //   input.value = term;
-    
+  //   } else
+  //   return;
   // }
 
 

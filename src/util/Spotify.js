@@ -178,7 +178,7 @@ const Spotify = {
                         uris: trackUris
                     })
                 });
-            });
+            });      
         });
     },
 

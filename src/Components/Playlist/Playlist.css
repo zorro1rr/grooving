@@ -1,4 +1,4 @@
-.Playlist {
+.Playlist1 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,7 +13,7 @@
     border-radius: 10px;
   }
   
-  .Playlist input {
+  .Playlist1 input {
     width: 100%;
     border: 0;
     outline: 0;
@@ -31,15 +31,15 @@
     border-radius: 10px;
     border-width: 0px;
     margin-top: 1.27rem;
-    background-color: transparent;
+    background-color: #d2d1cf8a;
     text-align: center;
     font-size: .83rem;
     transition: background-color .25s;
     color: #000000;
     font-weight: 700;
-    box-shadow: 5px 3px 17px 2px #3e3e3e, -5px -3px 10px 3px #ffffff;
+    box-shadow: 5px 5px 10px 0px #252525d1, -3px -3px 10px 3px #ffffffd9;
   }
-  .Playlist input {
+  .Playlist1 input {
     text-align: center;
   }
   
@@ -53,7 +53,7 @@
   }
   
   @media only screen and (max-width: 1450px) {
-    .Playlist {
+    .Playlist1 {
       width: 90%;
       margin: 6% 2% 1% 2%;
       padding: 2% 1% 8% 1%;
@@ -61,9 +61,11 @@
   }
 
   @media only screen and (max-width: 700px) {
-    .Playlist {
+    .Playlist1 {
       height: 31%;
       padding-right: 17px;
       margin: 1% 2% 1% 2%;
+      background-color: #cecece54;
+      box-shadow: 5px 5px 9px 1px #191919d1, -6px -7px 20px 3px #f9f9f9db;
     }
   }

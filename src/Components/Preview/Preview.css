@@ -4,8 +4,8 @@
     justify-content: center;
     width: 290px;
     height: 15vh;
-    background-color: transparent;
-    box-shadow: 13px 15px 20px 3px #404040, -6px -7px 20px 3px #f9f9f9;
+    background-color: #d1d1cfe6;
+    box-shadow: 5px 5px 11px 3px #151515d1, -5px -5px 12px 2px #f9f9f9bf;
     margin: 40px;
     margin-top: 10%;
     border-radius: 10px;
