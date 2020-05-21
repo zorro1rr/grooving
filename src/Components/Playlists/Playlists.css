@@ -12,10 +12,7 @@
     z-index: 1;
     margin-bottom: -1%;
 }
-h2 {
-    text-align: left;
-    margin-left: 20px;
-}
+
 
 .playlistBut {
     cursor: pointer;
@@ -30,7 +27,8 @@ h2 {
     transition: background-color .25s;
     color: #000000;
     font-weight: 700;
-    box-shadow: 1px 1px 5px 0px #0f5a03d1, 
+    box-shadow: 1px 1px 5px 0px #0f5a03d1;
+    display: none;
 }
 
 .playlistBut:hover {
@@ -48,6 +46,9 @@ h2 {
 @media only screen and (max-width: 1150px) {
     .playlist {
         display: none;
+    }
+    .playlistBut {
+        display: initial;
     }
 }
 @media only screen and (max-width: 700px) {

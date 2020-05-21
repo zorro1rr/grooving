@@ -29,11 +29,13 @@ componentDidMount(){
 // }
 
 disPlay (event) {
-    console.log('test');
-    alert('test');
     event.target.parentNode.style="display: none;";
     const searchresults = document.querySelector('.SearchResults');
-    searchresults.style="display: initial;";
+    const app = document.querySelector('.App');
+    const heading = document.querySelector('h1');
+    searchresults.style="display: flex; ";
+    app.style="padding-left: 0";
+    heading.style="left: 0";
 }
 
 
@@ -41,8 +43,8 @@ disPlay (event) {
     render() {
         return (
             <div className="playlist">
-            {/* <button className="playlistBut" onClick={this.disPlay}>Show Results</button> */}
-                <PlaylistTracks tracks={this.props.tracks}/>
+            <button className="playlistBut" onClick={this.disPlay}>Show Results</button>
+                <PlaylistTracks tracks={this.props.tracks} playlists={this.props.playlists} />
             </div>
         );
     }

@@ -97,8 +97,6 @@ this.setState({searchResults: searchTracks});
     Spotify.search(term).then(searchResults => {
       //to update the state of searchResults' to value result of the Spotify.search promise
       this.setState({searchResults: searchResults});
-      console.log(this.state.searchResults);
-      localStorage.setItem('term', term);
     });
   }
 
@@ -117,12 +115,11 @@ this.setState({searchResults: searchTracks});
   }
 
   //method that pulls up user playlists
+  
   loadPlaylist(){
-    const  playlistDiv = document.querySelector('.playlist');
     Spotify.getPlaylists().then(playlist => {
-      
+      console.log('test');
       const playlists = playlist[0];
-      console.log(playlists, playlist[1]);
       const accessToken = Spotify.getAccessToken();
       const fetchPromises = playlist[1].map(function(href) {
         return fetch(href, {
@@ -130,38 +127,32 @@ this.setState({searchResults: searchTracks});
             Authorization: `Bearer ${accessToken}`
         }
     })
- //use setTime to avoid render errors due to hrefs loading at different times
   })
-  
+  //use setTimeout to avoid render errors due to hrefs loading at different times
   setTimeout(() => { 
-    
+    console.log('test2');
     fetchPromises.forEach(fProm => {
            fProm
              .then(response => response.json())
              .then(jsonResponse => {
-              let innerhtml = []
          const tracklist = jsonResponse.items.map(tracklist => {
-                  return tracklist.track.name
+                  return {
+                    track: tracklist.track.name,
+                    id: tracklist.track.id
+                  }
                  })   
-
-                // playlistDiv.innerHTML += '<h2>' +  playlists.shift() + '</h2>' +
-                //  '<ul>' + tracklist.map(track => {
-                //  return '<li>' + track + '</li>'
-                //  }).join("") + '</ul>';
-                 
-
-                // save the playlist names and tracks to a variable and push them the tracks state
-                innerhtml += '<h2>' +  playlists.shift() + '</h2>' +
-                 '<ul>' + tracklist.map(track => {
-                 return '<li>' + track + '</li>'
-                 }).join("") + '</ul>';
-                 this.state.tracks.push(innerhtml);
+                const playlist = playlists.shift()
+                this.state.playlists.push(playlist);
+                this.state.playlists.push(tracklist);
              })
-         })
+            })
      }, 250);  
-     console.log('getting the  state in App.js', this.state.tracks);
+     console.log('test 3');
   })
 }
+
+
+
 
   // forgetPlaylist(){
   //   Spotify.deletePlaylist();
@@ -192,7 +183,6 @@ this.setState({searchResults: searchTracks});
       <SearchResults className="App-playlist" 
       searchResults={this.state.searchResults} 
       onAdd={this.addTrack}
-      previewUrl={this.state.previewUrl} 
       preview={this.preview} 
       />
       <div className="midDiv">

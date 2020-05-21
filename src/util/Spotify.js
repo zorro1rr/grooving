@@ -53,7 +53,6 @@ const Spotify = {
         ).then(response => {
             return response.json();
         }).then(jsonResponse => {
-            console.log(jsonResponse);
             //make sure that some tracks actually exist
             if (!jsonResponse.tracks) {
                 return [];
@@ -120,6 +119,7 @@ const Spotify = {
                     console.log('no saved playlists');
                     return;
                 }
+                console.log(jsonResponse.items)
                 // make variables so we can pass down the playlists name and the track list hrefs
                 let playlists = jsonResponse.items.map(playlist => {
                     return playlist.name
@@ -131,8 +131,6 @@ const Spotify = {
                 const playlistTracks = [];
                 playlistTracks.push(playlists, tracks);
                 return  playlistTracks;
-
-
             })
     },
 
