@@ -5,25 +5,28 @@ import Playlists2 from '../Playlists2/Playlists2';
 
 class PlaylistTracks extends React.Component {
 
-    // componentDidMount(){
-    //     this.props.loadPlaylists();
-    // }
-   
-
+    
+ 
     render() {
         return (
             <div>
                 {
-                    this.props.playlists.map(playlist => {
-                        if(typeof playlist === 'string'){
-                            return  <Playlists2 
-                            playlists={playlist} />
+                    this.props.playlists.map((playlist, i) => {
+                        if(playlist.playlistId){
+                             return  <Playlists2 
+                             playlists={playlist} 
+                             key={playlist.playlistId}
+                             playlistId={playlist.playlistId}
+                             delete={this.props.delete}
+                             id={i}/>
                         } else {
                        return   playlist.map(track=> {
-                                return <Tracks2 
+                                return  <Tracks2 
                                 track={track}
-                                key={track.id} />
+                                key={track.id} 
+                                id={i}/>
                             })
+                            
                         }
                     })
                 }

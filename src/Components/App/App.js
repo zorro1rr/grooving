@@ -51,7 +51,6 @@ addTrack(track) {
     this.setState({searchResults: searchTracks});
     //then set the state of the playlist to the tracks array of objects
     this.setState({playlistTracks: tracks});
-    console.log(this.state.playlistTracks);
   }
 
   //method for removing song from user's playlist
@@ -88,7 +87,7 @@ this.setState({searchResults: searchTracks});
         playlistTracks: []
       });
     });
-    window.location.reload();
+   setTimeout(()=>{ this.loadPlaylist(); }, 2000);
   }
 
   //method that updates searchResults with the user's search results from the Spotify API
@@ -118,7 +117,6 @@ this.setState({searchResults: searchTracks});
   
   loadPlaylist(){
     Spotify.getPlaylists().then(playlist => {
-      console.log('test');
       const playlists = playlist[0];
       const accessToken = Spotify.getAccessToken();
       const fetchPromises = playlist[1].map(function(href) {
@@ -130,7 +128,6 @@ this.setState({searchResults: searchTracks});
   })
   //use setTimeout to avoid render errors due to hrefs loading at different times
   setTimeout(() => { 
-    console.log('test2');
     fetchPromises.forEach(fProm => {
            fProm
              .then(response => response.json())
@@ -147,16 +144,17 @@ this.setState({searchResults: searchTracks});
              })
             })
      }, 250);  
-     console.log('test 3');
   })
 }
 
 
 
 
-  // forgetPlaylist(){
-  //   Spotify.deletePlaylist();
-  // }
+  forgetPlaylist(playlist){
+    console.log(playlist);
+      Spotify.deletePlaylist(playlist);
+      
+  }
  
 
   // //repopulate inputfield
@@ -177,7 +175,8 @@ this.setState({searchResults: searchTracks});
   return (
 <div>
 <h1>Gr<span className="highlight">oo</span>ving</h1>
-<Playlists loadPlaylists={this.loadPlaylist} playlists={this.state.playlists} tracks={this.state.tracks} />
+<Playlists loadPlaylists={this.loadPlaylist} playlists={this.state.playlists} 
+tracks={this.state.tracks} delete={this.forgetPlaylist} />
     <div className="App">
       {/* Pass all the methods down through the components */}
       <SearchResults className="App-playlist" 

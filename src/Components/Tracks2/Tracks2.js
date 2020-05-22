@@ -8,9 +8,9 @@ class Tracks2 extends React.Component {
     render() {
         return (
             <div>
-                <ul>
-                <li>{this.props.track.track}</li>
-                </ul>
+                <p className="track" id={this.props.id}>
+                {this.props.track.track}
+                </p>
             </div>
         )
     }

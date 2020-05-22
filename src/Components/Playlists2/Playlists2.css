@@ -1,0 +1,18 @@
+.playDiv {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.dBut{
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.track {
+    margin: 0;
+    margin-left: 10px;
+}
