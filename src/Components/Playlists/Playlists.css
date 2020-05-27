@@ -29,6 +29,7 @@
     font-weight: 700;
     box-shadow: 1px 1px 5px 0px #0f5a03d1;
     display: none;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .playlistBut:hover {

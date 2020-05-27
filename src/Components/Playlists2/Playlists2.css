@@ -2,17 +2,38 @@
     display: flex;
     justify-content: space-around;
     align-items: baseline;
+    font-family: 'Open Sans', sans-serif;
 }
 
-.dBut{
-    color: white;
-    background-color: transparent;
-    border: none;
-    font-size: 2rem;
-    font-weight: bold;
+.fdBut{
+    cursor: pointer;
+    border-radius: 3px;
+    border-width: 0px;
+    background-color: #d70101f2;
+    text-align: center;
+    font-size: .5rem;
+    transition: background-color .25s;
+    color: #000000;
+    font-weight: 700;
+    display: none;
+    font-family: 'Open Sans', sans-serif;
+
 }
 
 .track {
     margin: 0;
     margin-left: 10px;
+}
+
+.dBut {
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.dBut:hover{
+    color: #d70101f2;
 }

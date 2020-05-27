@@ -6,10 +6,7 @@ import Playlist from '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
 import Preview from '../Preview/Preview';
 import Playlists from  '../Playlists/Playlists';
-
 // import Logout from '../Logout/Logout';
-
-
 
 class App extends React.Component {
   constructor(props){
@@ -22,7 +19,7 @@ class App extends React.Component {
       playlists: [],
       tracks: [],
     }
-    //bind the methods that use state/setState to update the state
+    //bind the methods
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
@@ -30,6 +27,7 @@ class App extends React.Component {
     this.search = this.search.bind(this);
     this.preview = this.preview.bind(this);
     this.loadPlaylist = this.loadPlaylist.bind(this);
+    this.forgetPlaylist = this.forgetPlaylist.bind(this);
   }
 
   //method for adding song from the search results to the user's playlist
@@ -84,10 +82,12 @@ this.setState({searchResults: searchTracks});
     Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
       this.setState({
         playlistName: 'New Playlist',
-        playlistTracks: []
+        playlistTracks: [],
+        playlists: []
       });
+      this.loadPlaylist();
+      console.log(this.state.playlists); 
     });
-   setTimeout(()=>{ this.loadPlaylist(); }, 2000);
   }
 
   //method that updates searchResults with the user's search results from the Spotify API
@@ -145,31 +145,19 @@ this.setState({searchResults: searchTracks});
             })
      }, 250);  
   })
+  console.log('playlists state1', this.state.playlists);
 }
 
-
-
-
-  forgetPlaylist(playlist){
-    console.log(playlist);
-      Spotify.deletePlaylist(playlist);
-      
-  }
+  forgetPlaylist(playlist, playlistD){
+      Spotify.deletePlaylist(playlist).then(() => {
+        console.log(playlist);
+        let playlistState = this.state.playlists;
+        playlistState = playlistState.filter(playlist => playlist.playlistId !== playlistD.playlistId);
+        console.log(playlistState);
+        // this.setState({playlists: playlistState})
+  })
+}
  
-
-  // //repopulate inputfield
-  // componentDidMount() {
-  //   const input = document.querySelector('input');
-  //   let term = localStorage.getItem('term');
-  //   if(!term === null){
-  //     console.log(term);
-  //     input.value = term;
-  //     // localStorage.removeItem('term');
-  //     return;
-  //   } else
-  //   return;
-  // }
-
 
   render() {
   return (

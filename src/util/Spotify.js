@@ -187,26 +187,6 @@ const Spotify = {
     const headers = {
         Authorization: `Bearer ${accessToken}`
     };
-    // let userId;
-    // //make request that returns user's Spotify username
-    // return fetch(`https://api.spotify.com/v1/me`, {
-    //         headers: headers
-    //     }
-    //     //convert response to JSON
-    // ).then(response => response.json()
-    //     //save the response id to the user's ID variable
-    // ).then(jsonResponse => {
-    //     userId = jsonResponse.id;
- 
-        
-
-    //    return fetch(`https://api.spotify.com/v1/users/${userId}/playlists/${playlist}/tracks`, {
-    //         headers: headers,
-    //         method: 'DELETE'
-    //     }) 
-
-        // Use the returned userId to make POST request with Spotify endpoint
-        // to request creation of new playlist
         return fetch(`https://api.spotify.com/v1/playlists/${playlist}/followers`, {
             headers: headers,
             method: 'DELETE'
