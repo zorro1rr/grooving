@@ -32,7 +32,7 @@ disPlay (event) {
         return (
             <div className="playlist">
             <button className="playlistBut" onClick={this.disPlay}>Show Results</button>
-                <PlaylistTracks tracks={this.props.tracks} playlists={this.props.playlists} delete={this.props.delete}/>
+                <PlaylistTracks  playlists={this.props.playlists} delete={this.props.delete} />
             </div>
         );
     }

@@ -16,8 +16,7 @@ class App extends React.Component {
       searchResults: [],
       playlistName: 'playlist',
       playlistTracks: [],
-      playlists: [],
-      tracks: [],
+      playlists: []
     }
     //bind the methods
     this.addTrack = this.addTrack.bind(this);
@@ -27,7 +26,7 @@ class App extends React.Component {
     this.search = this.search.bind(this);
     this.preview = this.preview.bind(this);
     this.loadPlaylist = this.loadPlaylist.bind(this);
-    this.forgetPlaylist = this.forgetPlaylist.bind(this);
+    // this.forgetPlaylist = this.forgetPlaylist.bind(this);
   }
 
   //method for adding song from the search results to the user's playlist
@@ -114,57 +113,27 @@ this.setState({searchResults: searchTracks});
   }
 
   //method that pulls up user playlists
-  
-  loadPlaylist(){
-    Spotify.getPlaylists().then(playlist => {
-      const playlists = playlist[0];
-      const accessToken = Spotify.getAccessToken();
-      const fetchPromises = playlist[1].map(function(href) {
-        return fetch(href, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    })
-  })
-  //use setTimeout to avoid render errors due to hrefs loading at different times
-  setTimeout(() => { 
-    fetchPromises.forEach(fProm => {
-           fProm
-             .then(response => response.json())
-             .then(jsonResponse => {
-         const tracklist = jsonResponse.items.map(tracklist => {
-                  return {
-                    track: tracklist.track.name,
-                    id: tracklist.track.id
-                  }
-                 })   
-                const playlist = playlists.shift()
-                this.state.playlists.push(playlist);
-                this.state.playlists.push(tracklist);
-             })
-            })
-     }, 250);  
-  })
-  console.log('playlists state1', this.state.playlists);
-}
+  //async
+   loadPlaylist(){
+    // const playlists = await Spotify.getPlaylists();
+   
+     Spotify.getPlaylists().then(playlists => {
+       this.setState({playlists: playlists})
+       console.log('returned playlist data in App.js & set to state', this.state.playlists);
+     })
+    };
 
-  forgetPlaylist(playlist, playlistD){
-      Spotify.deletePlaylist(playlist).then(() => {
-        console.log(playlist);
-        let playlistState = this.state.playlists;
-        playlistState = playlistState.filter(playlist => playlist.playlistId !== playlistD.playlistId);
-        console.log(playlistState);
-        // this.setState({playlists: playlistState})
-  })
-}
+
+//   forgetPlaylist(playlist){
+//       Spotify.deletePlaylist(playlist);
+// }
  
 
   render() {
   return (
 <div>
 <h1>Gr<span className="highlight">oo</span>ving</h1>
-<Playlists loadPlaylists={this.loadPlaylist} playlists={this.state.playlists} 
-tracks={this.state.tracks} delete={this.forgetPlaylist} />
+<Playlists loadPlaylists={this.loadPlaylist} delete={this.forgetPlaylist} playlists={this.state.playlists} />
     <div className="App">
       {/* Pass all the methods down through the components */}
       <SearchResults className="App-playlist" 

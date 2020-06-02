@@ -86,7 +86,7 @@ const Spotify = {
         });
     },
 
-    getPlaylists() {
+     async getPlaylists() {
         // variables: for current user's access token (grabbed from the method above)
         const accessToken = Spotify.getAccessToken()
         // for Authorization parameter in implicit grant flow request format
@@ -94,46 +94,72 @@ const Spotify = {
             Authorization: `Bearer ${accessToken}`,
         }
         // empty variable for user's ID
-        let userId
-        // make request that returns user's Spotify username
-        return fetch(
-                `https://api.spotify.com/v1/me`, {
-                    headers: headers,
-                },
-                // convert response to JSON
-            )
-            .then(
-                response => response.json(),
-                // save the response id to the user's ID variable
-            )
-            .then(jsonResponse => {
-                userId = jsonResponse.id
-                // Use user Id to fetch playlists
-                return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-                    headers: headers,
-                })
+        const userData = await fetch(
+            `https://api.spotify.com/v1/me`, {
+                headers: headers,
+            },
+            // convert response to JSON
+        )
+        const {id: userId} = await userData.json();
+        const playlistsData = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+            headers: headers,
+        })
+        const playlists = await playlistsData.json();
+        if (!playlists.items) {
+            console.log('no saved playlists');
+            return;
+        }
+        //variables to push playlist names and tracklists to
+             let playlistNames =  [];
+             let playlistTracks = [];
+            //  let playlistObject = {};
+             let playlistArr = [];
+        //make array of fetch promises to get each tracklist
+         const fetchPromises = playlists.items.map(function(playlist) {
+              const playlistArr = playlist.name;
+              playlistNames.push(playlistArr);
+      
+               return fetch(playlist.tracks.href, {
+                 headers: {
+                   Authorization: `Bearer ${accessToken}`
+               }
             })
-            .then(response => response.json())
-            .then(jsonResponse => {
-                if (!jsonResponse.items) {
-                    console.log('no saved playlists');
-                    return;
-                }
-                // make variables so we can pass down the playlists name and the track list hrefs
-                let playlists = jsonResponse.items.map(playlist => {
-                    return {
-                        playlist: playlist.name,
-                        playlistId: playlist.id
-                      }
-                })
-                let tracks = jsonResponse.items.map(track => {
-                    return track.tracks.href
-                })
+          })
+           fetchPromises.forEach(fProm => {
+                  fProm
+                    .then(response => response.json())
+                    .then(jsonResponse => {
+                      console.log('returned json data from each fetch promise', jsonResponse);
+                const tracklist =  jsonResponse.items.map(track => {
+                        //  return {
+                        //    track: track.track.name,
+                        //    id: track.track.id
+                        //  }
+                        return track.track.name
+                        })  
+                        playlistTracks.push(tracklist);  
+                        return tracklist;
+                    }) 
+                   })
+                
+                   console.log('playlist names', playlistNames);
+                   console.log('playlist tracks', playlistTracks);
+                //    setTimeout(function(){  for(let i =0 ; i < playlistNames.length; i++){
+                //     playlistObject[playlistNames[i]] = playlistTracks[i]
+                //   } }, 1000);
+           
+                  setTimeout(function(){ 
+                      for (let i =0 ; i < playlistNames.length; i++){
+                      let playlistAr = [];
+                    playlistAr.push(playlistNames[i], playlistTracks[i]);
+                    playlistArr.push(playlistAr);
+                  } 
+                }, 1000);
+                  console.log('playlistArr', playlistArr);
 
-                const playlistTracks = [];
-                playlistTracks.push(playlists, tracks);
-                return  playlistTracks;
-            })
+            // console.log('playlist Object made from names and tracks, to be returned to App.js', playlistObject);
+            // return  playlistObject;   
+            return playlistArr;
     },
 
 
