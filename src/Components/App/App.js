@@ -26,7 +26,7 @@ class App extends React.Component {
     this.search = this.search.bind(this);
     this.preview = this.preview.bind(this);
     this.loadPlaylist = this.loadPlaylist.bind(this);
-    // this.forgetPlaylist = this.forgetPlaylist.bind(this);
+    this.forgetPlaylist = this.forgetPlaylist.bind(this);
   }
 
   //method for adding song from the search results to the user's playlist
@@ -82,10 +82,8 @@ this.setState({searchResults: searchTracks});
       this.setState({
         playlistName: 'New Playlist',
         playlistTracks: [],
-        playlists: []
       });
       this.loadPlaylist();
-      console.log(this.state.playlists); 
     });
   }
 
@@ -119,14 +117,15 @@ this.setState({searchResults: searchTracks});
    
      Spotify.getPlaylists().then(playlists => {
        this.setState({playlists: playlists})
-       console.log('returned playlist data in App.js & set to state', this.state.playlists);
      })
     };
 
 
-//   forgetPlaylist(playlist){
-//       Spotify.deletePlaylist(playlist);
-// }
+  forgetPlaylist(playlist){
+       Spotify.deletePlaylist(playlist).then(() => {
+        this.loadPlaylist();
+       })
+}
  
 
   render() {

@@ -7,17 +7,14 @@ class PlaylistTracks extends React.Component {
     
  
     render() {
-       
-            console.log('playlist props passed to PlaylistTracks', this.props.playlists);
-            // console.log('object.entries(playlist)', Object.entries(this.props.playlists));
-     
-        
         return (
             <div className="playlistTracks">
                {
                     this.props.playlists.map((playlist, i) => {
                          return  <Playlists2 
-                         playlist={playlist}
+                         playlists={playlist}
+                         delete={this.props.delete}
+                         playlistId={playlist[0][1]}
                          key={i} 
                          />    
                     })

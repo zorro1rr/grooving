@@ -4,6 +4,9 @@
     align-items: baseline;
     font-family: 'Open Sans', sans-serif;
 }
+.playlistNames{
+    display: inline;
+}
 
 .fdBut{
     cursor: pointer;
