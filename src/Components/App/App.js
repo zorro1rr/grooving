@@ -111,16 +111,13 @@ this.setState({searchResults: searchTracks});
   }
 
   //method that pulls up user playlists
-  //async
    loadPlaylist(){
-    // const playlists = await Spotify.getPlaylists();
-   
      Spotify.getPlaylists().then(playlists => {
        this.setState({playlists: playlists})
      })
     };
 
-
+//method for deleting playlists
   forgetPlaylist(playlist){
        Spotify.deletePlaylist(playlist).then(() => {
         this.loadPlaylist();
