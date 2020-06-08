@@ -4,11 +4,12 @@
     align-items: baseline;
     font-family: 'Open Sans', sans-serif;
 }
-.playlistNames{
+
+.playlistNames {
     display: inline;
 }
 
-.fdBut{
+.fdBut {
     cursor: pointer;
     border-radius: 3px;
     border-width: 0px;
@@ -20,7 +21,7 @@
     font-weight: 700;
     display: none;
     font-family: 'Open Sans', sans-serif;
-
+    align-self: center;
 }
 
 .track {
@@ -37,6 +38,6 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-.dBut:hover{
+.dBut:hover {
     color: #d70101f2;
 }

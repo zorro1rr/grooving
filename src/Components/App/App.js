@@ -1,23 +1,23 @@
-import React from 'react';
-import './App.css';
-import SearchBar from '../SearchBar/SearchBar';
-import SearchResults from '../SearchResults/SearchResults';
-import Playlist from '../Playlist/Playlist';
-import Spotify from '../../util/Spotify';
-import Preview from '../Preview/Preview';
-import Playlists from  '../Playlists/Playlists';
+import React from "react";
+import "./App.css";
+import SearchBar from "../SearchBar/SearchBar";
+import SearchResults from "../SearchResults/SearchResults";
+import Playlist from "../Playlist/Playlist";
+import Spotify from "../../util/Spotify";
+import Preview from "../Preview/Preview";
+import Playlists from "../Playlists/Playlists";
 // import Logout from '../Logout/Logout';
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-//set an initial states
+    //set an initial states
     this.state = {
       searchResults: [],
-      playlistName: 'playlist',
+      playlistName: "playlist",
       playlistTracks: [],
-      playlists: []
-    }
+      playlists: [],
+    };
     //bind the methods
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -30,14 +30,14 @@ class App extends React.Component {
   }
 
   //method for adding song from the search results to the user's playlist
-addTrack(track) {
-  let tracks = this.state.playlistTracks;
-  let searchTracks = this.state.searchResults;
-  //check to see if song is already in playlistTracks state with track's id property
-  if(tracks.find(savedTrack => savedTrack.id === track.id)) {
-    //if it is then end the method
-    return;
-  }
+  addTrack(track) {
+    let tracks = this.state.playlistTracks;
+    let searchTracks = this.state.searchResults;
+    //check to see if song is already in playlistTracks state with track's id property
+    if (tracks.find((savedTrack) => savedTrack.id === track.id)) {
+      //if it is then end the method
+      return;
+    }
     //if new then push the new song to the array
     tracks.push(track);
     //grab the index of selected track
@@ -45,9 +45,9 @@ addTrack(track) {
     //remove the added track from the search results
     searchTracks.splice(index, 1);
     //update the state of the search results
-    this.setState({searchResults: searchTracks});
+    this.setState({ searchResults: searchTracks });
     //then set the state of the playlist to the tracks array of objects
-    this.setState({playlistTracks: tracks});
+    this.setState({ playlistTracks: tracks });
   }
 
   //method for removing song from user's playlist
@@ -57,30 +57,29 @@ addTrack(track) {
     //look through the playlistTracks for see if the song has a matching id
     //if it matches the function !== is a false statement and it will be filtered out.
     searchTracks.unshift(track);
-    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
-//set the value of playlistTracks to the new filtered array, tracks
-console.log(tracks)
-this.setState({searchResults: searchTracks});
-  this.setState({playlistTracks : tracks});
+    tracks = tracks.filter((currentTrack) => currentTrack.id !== track.id);
+    //set the value of playlistTracks to the new filtered array, tracks
+    console.log(tracks);
+    this.setState({ searchResults: searchTracks });
+    this.setState({ playlistTracks: tracks });
   }
 
-
   //method that allows users to change the name of their playlist
-  updatePlaylistName(name){
-    this.setState({playlistName: name});
+  updatePlaylistName(name) {
+    this.setState({ playlistName: name });
   }
 
   //method for generating saving user's playlist to their Spotify account
   //and resets the state of playlistName and playlistTracks array
-  savePlaylist(){
+  savePlaylist() {
     //Spotify uses a property named uri to reference each song
     //loop through these uri values with .map and save them to a variable
-    const trackUris = this.state.playlistTracks.map(track => track.uri);
+    const trackUris = this.state.playlistTracks.map((track) => track.uri);
     //pass in the savePlaylist method from Spotify.js and use a promise
     //to update the state of PlaylistName and PlaylistTracks
     Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
       this.setState({
-        playlistName: 'New Playlist',
+        playlistName: "New Playlist",
         playlistTracks: [],
       });
       this.loadPlaylist();
@@ -88,22 +87,22 @@ this.setState({searchResults: searchTracks});
   }
 
   //method that updates searchResults with the user's search results from the Spotify API
-  search(term){
+  search(term) {
     //pass in the search method from Spotify.js and use a promise
-    Spotify.search(term).then(searchResults => {
+    Spotify.search(term).then((searchResults) => {
       //to update the state of searchResults' to value result of the Spotify.search promise
-      this.setState({searchResults: searchResults});
+      this.setState({ searchResults: searchResults });
     });
   }
 
   //method that allows user to preview song
-  preview(track){
+  preview(track) {
     //grab the id of selected track
     let trackId = track.id;
-    const previewDiv = document.querySelector('.preview');
-    Spotify.previewTrack(trackId).then(previewUrl => {
-      if(!previewUrl){
-        previewDiv.innerHTML = '<p> No preview available for this track </p>';
+    const previewDiv = document.querySelector(".preview");
+    Spotify.previewTrack(trackId).then((previewUrl) => {
+      if (!previewUrl) {
+        previewDiv.innerHTML = "<p> No preview available for this track </p>";
       } else {
         previewDiv.innerHTML = `<object type="text/html" data="${previewUrl}" ></object>`;
       }
@@ -111,44 +110,55 @@ this.setState({searchResults: searchTracks});
   }
 
   //method that pulls up user playlists
-   loadPlaylist(){
-     Spotify.getPlaylists().then(playlists => {
-       this.setState({playlists: playlists})
-     })
-    };
+  loadPlaylist() {
+    Spotify.getPlaylists().then((playlists) => {
+      this.setState({ playlists: playlists });
+    });
+  }
 
-//method for deleting playlists
-  forgetPlaylist(playlist){
-       Spotify.deletePlaylist(playlist).then(() => {
-        this.loadPlaylist();
-       })
-}
- 
+  //method for deleting playlists
+  forgetPlaylist(playlist) {
+    Spotify.deletePlaylist(playlist).then(() => {
+      this.loadPlaylist();
+    });
+  }
 
   render() {
-  return (
-<div>
-<h1>Gr<span className="highlight">oo</span>ving</h1>
-<Playlists loadPlaylists={this.loadPlaylist} delete={this.forgetPlaylist} playlists={this.state.playlists} />
-    <div className="App">
-      {/* Pass all the methods down through the components */}
-      <SearchResults className="App-playlist" 
-      searchResults={this.state.searchResults} 
-      onAdd={this.addTrack}
-      preview={this.preview} 
-      />
-      <div className="midDiv">
-      <SearchBar onSearch={this.search} searchTerm={this.state.searchTerm} />
-      <Preview />
-      
-      </div>
-      <Playlist className="App-playlist" playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} 
-        onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} 
-        onSave={this.savePlaylist}
+    return (
+      <div>
+        <h1>
+          Gr<span className="highlight">oo</span>ving
+        </h1>
+        <Playlists
+          loadPlaylists={this.loadPlaylist}
+          delete={this.forgetPlaylist}
+          playlists={this.state.playlists}
         />
-    
-  </div>
-</div>
+        <div className="App">
+          {/* Pass all the methods down through the components */}
+          <SearchResults
+            className="App-playlist"
+            searchResults={this.state.searchResults}
+            onAdd={this.addTrack}
+            preview={this.preview}
+          />
+          <div className="midDiv">
+            <SearchBar
+              onSearch={this.search}
+              searchTerm={this.state.searchTerm}
+            />
+            <Preview />
+          </div>
+          <Playlist
+            className="App-playlist"
+            playlistName={this.state.playlistName}
+            playlistTracks={this.state.playlistTracks}
+            onRemove={this.removeTrack}
+            onNameChange={this.updatePlaylistName}
+            onSave={this.savePlaylist}
+          />
+        </div>
+      </div>
     );
   }
 }

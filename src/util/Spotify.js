@@ -39,11 +39,13 @@ const Spotify = {
   async search(term) {
     const accessToken = Spotify.getAccessToken();
     //start promise chain be returning GET request using fetch()
-    const response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
+    const response = await fetch(
+      `https://api.spotify.com/v1/search?type=track&q=${term}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
       //convert the response to JSON
     );
     const jsonResponse = await response.json();
@@ -64,11 +66,13 @@ const Spotify = {
   async previewTrack(track) {
     const accessToken = Spotify.getAccessToken();
     //start promise chain be returning GET request using fetch()
-    const response = await fetch(`https://api.spotify.com/v1/tracks/${track}?market=US`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
+    const response = await fetch(
+      `https://api.spotify.com/v1/tracks/${track}?market=US`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
       //convert the response to JSON
     );
     const jsonResponse = await response.json();
@@ -100,7 +104,7 @@ const Spotify = {
       }
     );
     const playlists = await playlistsData.json();
-    
+
     if (!playlists.items) {
       console.log("no saved playlists");
       return;
@@ -111,44 +115,47 @@ const Spotify = {
     //  let playlistObject = {};
     let playlistArr = [];
     //grab playlist hrefs, ids, names
-    const urls = playlists.items.map(playlist => {
-        const playlistArr = [];
-        const Id = playlist.id;
-        const name = playlist.name;
-        const href = playlist.tracks.href;
-        playlistArr.push(name, Id, href);
-        playlistNames.push(playlistArr);
-        return playlist.tracks.href;
-    })
+    const urls = playlists.items.map((playlist) => {
+      const playlistArr = [];
+      const Id = playlist.id;
+      const name = playlist.name;
+      const href = playlist.tracks.href;
+      playlistArr.push(name, Id, href);
+      playlistNames.push(playlistArr);
+      return playlist.tracks.href;
+    });
 
     //fetch each  playlist href
-   await Promise.all(urls.map(async url =>{
+    await Promise.all(
+      urls.map(async (url) => {
         const response = await fetch(url, {
-       headers: {
-         Authorization: `Bearer ${accessToken}`,
-       },
-     });
-     //pushing tracks and track href to match if playlist name
-     let tracks = [];
-      const jsonResponse = await response.json();
-      const tracklist = jsonResponse.items.map((track) => {
-       return track.track.name;
-     });
-     tracks.push(response.url, tracklist);
-     playlistTracks.push(tracks);
-    }))
-
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        //pushing tracks and track href to match if playlist name
+        let tracks = [];
+        const jsonResponse = await response.json();
+        const tracklist = jsonResponse.items.map((track) => {
+          return track.track.name;
+        });
+        tracks.push(response.url, tracklist);
+        playlistTracks.push(tracks);
+      })
+    );
 
     //because the promises are returning at different times we match up the hrefs or the names and the tracks
     //and push them into a single array
-    playlistNames.forEach(playlist => {
-      let trackArr = []
+    playlistNames.forEach((playlist) => {
+      let trackArr = [];
       const href = playlist[2];
-      const filteredTracks = playlistTracks.filter(tracks => tracks[0] === href);
+      const filteredTracks = playlistTracks.filter(
+        (tracks) => tracks[0] === href
+      );
       trackArr.push(playlist, filteredTracks[0][1]);
       playlistArr.push(trackArr);
-    })
-    
+    });
+
     // for (let i = 0; i < playlistNames.length; i++) {
     //   let playlistAr = [];
     //   playlistAr.push(playlistNames[i], playlistTracks[i]);
@@ -173,31 +180,39 @@ const Spotify = {
     //empty variable for user's ID
     let userId;
     //make request that returns user's Spotify username
-    const response = await fetch(`https://api.spotify.com/v1/me`, {
-      headers: headers,
-    }
+    const response = await fetch(
+      `https://api.spotify.com/v1/me`,
+      {
+        headers: headers,
+      }
       //convert response to JSON
     );
     const jsonResponse = await response.json();
     userId = jsonResponse.id;
-    const response_1 = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-      headers: headers,
-      method: "POST",
-      //key value for name is one of the parameters for this method
-      body: JSON.stringify({
-        name: name,
-      }),
-    });
+    const response_1 = await fetch(
+      `https://api.spotify.com/v1/users/${userId}/playlists`,
+      {
+        headers: headers,
+        method: "POST",
+        //key value for name is one of the parameters for this method
+        body: JSON.stringify({
+          name: name,
+        }),
+      }
+    );
     const jsonResponse_1 = await response_1.json();
     //get the playlist with the response id
     const playlistId = jsonResponse_1.id;
-    return fetch(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`, {
-      headers: headers,
-      method: "POST",
-      body: JSON.stringify({
-        uris: trackUris,
-      }),
-    });
+    return fetch(
+      `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`,
+      {
+        headers: headers,
+        method: "POST",
+        body: JSON.stringify({
+          uris: trackUris,
+        }),
+      }
+    );
   },
 
   deletePlaylist(playlist) {

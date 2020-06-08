@@ -4,8 +4,8 @@ html,
   height: 100%;
 }
 
-*{
-/* outline: 1px solid hotpink; */
+* {
+  /* outline: 1px solid hotpink; */
 }
 
 
@@ -67,8 +67,8 @@ h2 {
   .App {
     padding: 0;
   }
-  
-  h1{
+
+  h1 {
     font-size: 3rem;
     padding-top: inherit;
   }
@@ -78,7 +78,7 @@ h2 {
     flex-direction: column;
   }
 
-  .midDiv{
+  .midDiv {
     margin: 1% 2% 1% 2%;
     width: 35%;
   }
@@ -88,7 +88,8 @@ h2 {
   .App {
     padding-left: 14%;
   }
-  h1{
+
+  h1 {
     padding-left: 7%;
   }
 }
@@ -97,26 +98,28 @@ h2 {
   .App {
     padding-left: 0;
   }
-  h1{
+
+  h1 {
     padding-left: 0;
   }
 }
 
 
 @media only screen and (max-width: 700px) {
-  .App{
+  .App {
     flex-direction: column;
     background-position: right;
     padding-left: 0 !important;
   }
 
-  h1{
+  h1 {
     font-size: 2rem;
     text-align: center;
     height: auto;
     padding: inherit;
   }
-  .midDiv{
+
+  .midDiv {
     margin: 1% 2% 1% 2%;
     width: auto;
   }

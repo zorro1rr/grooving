@@ -17,9 +17,10 @@
         padding-left: 1%;
     }
 }
+
 @media only screen and (max-width: 700px) {
-   .preview {
-    margin: 1% 2% 1% 2%;
-    height: fit-content;
-   }
+    .preview {
+        margin: 1% 2% 1% 2%;
+        height: fit-content;
+    }
 }
