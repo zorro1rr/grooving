@@ -7,6 +7,7 @@ class Playlists2 extends React.Component {
 
     this.deletePlaylist = this.deletePlaylist.bind(this);
     this.showDelete = this.showDelete.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   deletePlaylist() {
@@ -16,6 +17,13 @@ class Playlists2 extends React.Component {
   showDelete(event) {
     event.target.style = "display:none";
     event.target.previousSibling.style = "display: flex;";
+    event.target.nextSibling.style = "display: flex";
+  }
+
+  goBack(event) {
+    event.target.style = "display:none";
+    event.target.previousSibling.style = "display: flex";
+    event.target.previousSibling.previousSibling.style = "display: none";
   }
 
   render() {
@@ -42,6 +50,9 @@ class Playlists2 extends React.Component {
                   onClick={this.showDelete}
                 >
                   -
+                </button>
+                <button className="bBut" onClick={this.goBack}>
+                  &#10095;
                 </button>
               </div>
             );

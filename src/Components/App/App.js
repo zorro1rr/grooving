@@ -6,7 +6,7 @@ import Playlist from "../Playlist/Playlist";
 import Spotify from "../../util/Spotify";
 import Preview from "../Preview/Preview";
 import Playlists from "../Playlists/Playlists";
-// import Logout from '../Logout/Logout';
+import Logout from "../Logout/Logout";
 
 class App extends React.Component {
   constructor(props) {
@@ -101,6 +101,7 @@ class App extends React.Component {
     let trackId = track.id;
     const previewDiv = document.querySelector(".preview");
     Spotify.previewTrack(trackId).then((previewUrl) => {
+      previewDiv.style = "display:flex;";
       if (!previewUrl) {
         previewDiv.innerHTML = "<p> No preview available for this track </p>";
       } else {
@@ -123,9 +124,14 @@ class App extends React.Component {
     });
   }
 
+  //Method for logout
+  logout() {
+    Spotify.logout();
+  }
+
   render() {
     return (
-      <div>
+      <div className="window">
         <h1>
           Gr<span className="highlight">oo</span>ving
         </h1>
@@ -135,7 +141,6 @@ class App extends React.Component {
           playlists={this.state.playlists}
         />
         <div className="App">
-          {/* Pass all the methods down through the components */}
           <SearchResults
             className="App-playlist"
             searchResults={this.state.searchResults}
@@ -157,6 +162,7 @@ class App extends React.Component {
             onNameChange={this.updatePlaylistName}
             onSave={this.savePlaylist}
           />
+          <Logout logout={this.logout} />
         </div>
       </div>
     );

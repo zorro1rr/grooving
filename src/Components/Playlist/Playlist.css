@@ -11,6 +11,7 @@
   margin: 40px;
   margin-top: 7%;
   border-radius: 10px;
+  color: #272727;
 }
 
 .Playlist1 input {
@@ -18,26 +19,27 @@
   border: 0;
   outline: 0;
   background: transparent;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 1.55rem;
-  color: #000000;
+  color: #272727;
   font-weight: bold;
 }
 
 .Playlist-save {
   cursor: pointer;
   width: 10rem;
-  padding: .77rem 0;
-  border-radius: 10px;
+  padding: 0.77rem 0;
+  border-radius: 7px;
   border-width: 0px;
   margin-top: 1.27rem;
   background-color: #d2d1cf8a;
   text-align: center;
-  font-size: .83rem;
-  transition: background-color .25s;
-  color: #000000;
+  font-size: 1rem;
+  transition: background-color 0.25s;
+  color: #272727;
   font-weight: 700;
   box-shadow: 5px 5px 10px 0px #252525d1, -3px -3px 10px 1px #ffffffd9;
+  font-family: "Open Sans", sans-serif;
 }
 
 .Playlist1 input {

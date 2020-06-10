@@ -8,16 +8,15 @@ html,
   /* outline: 1px solid hotpink; */
 }
 
-
 html {
   font-size: 18px;
 }
 
 h1 {
-  padding: .77rem 0;
+  padding: 0.77rem 0;
   background-color: transparent;
   text-align: center;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
   font-size: 3rem;
   color: #ffffff;
   margin: 0px;
@@ -26,24 +25,22 @@ h1 {
   text-shadow: 2px 2px 8px #000000, -6px -4px 8px #ffffff;
 }
 
-
-
 h1 .highlight {
   color: rgb(30, 215, 1);
 }
 
 h2 {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 1.55rem;
 }
 
 .App {
   height: 100vh;
-  background-image: url('./background_photo_desktop2.jpg');
+  background-image: url("./background_photo_desktop2.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-weight: 500;
   color: #000000;
   display: flex;
@@ -84,6 +81,9 @@ h2 {
   }
 }
 
+.window {
+}
+
 @media only screen and (max-width: 1750px) {
   .App {
     padding-left: 14%;
@@ -103,7 +103,6 @@ h2 {
     padding-left: 0;
   }
 }
-
 
 @media only screen and (max-width: 700px) {
   .App {

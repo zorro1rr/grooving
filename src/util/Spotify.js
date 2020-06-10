@@ -1,5 +1,5 @@
 //variables for client ID and redirect URI
-const clientId = "5ac18e2dcacf4b9fba01cb5bc3be2240";
+const clientId = process.env.REACT_APP_CLIENTID;
 // const redirectUri = 'https://zorro1rr.github.io/Grooving/';
 const redirectUri = "http://localhost:3000";
 //variable that will hold user's access token
@@ -33,6 +33,19 @@ const Spotify = {
       const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
       window.location = accessUrl;
     }
+  },
+  //method for logout
+  logout() {
+    const url = "https://www.spotify.com/logout/";
+    const spotifyLogoutWindow = window.open(
+      url,
+      "Spotify Logout",
+      "width=700,height=500,top=40,left=40"
+    );
+    setTimeout(() => {
+      spotifyLogoutWindow.close();
+      window.location.reload();
+    }, 1200);
   },
   //method accepting search term input, passes search term value to a Spotify request
   //and returns the response as a list of tracks in JSON format
