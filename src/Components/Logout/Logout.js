@@ -1,6 +1,5 @@
 import React from "react";
 import "./Logout.css";
-import Spotify from "../../util/Spotify";
 
 class Logout extends React.Component {
   constructor(props) {

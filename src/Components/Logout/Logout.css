@@ -3,6 +3,7 @@
   right: 10px;
   top: 5px;
   height: 3vh;
+  min-height: 20px;
   cursor: pointer;
   border-radius: 3px;
   border-width: 0px;

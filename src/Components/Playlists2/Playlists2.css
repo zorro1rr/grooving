@@ -23,6 +23,9 @@
   font-family: "Open Sans", sans-serif;
   align-self: center;
 }
+.dBut:hover {
+  color: #ffffff;
+}
 
 .track {
   margin: 0;
@@ -30,12 +33,13 @@
 }
 
 .dBut {
-  color: white;
+  color: #ffffff;
   background-color: transparent;
   border: none;
   font-size: 2rem;
   font-weight: bold;
   font-family: "Open Sans", sans-serif;
+  transition: background-color 0.25s;
 }
 
 .dBut:hover {
@@ -50,6 +54,7 @@
   font-weight: 700;
   display: none;
   margin-bottom: 2px;
+  transition: background-color 0.25s;
 }
 
 .bBut:hover {
