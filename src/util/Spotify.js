@@ -1,6 +1,6 @@
 //variables for client ID and redirect URI
 const clientId = process.env.REACT_APP_CLIENTID;
-// const redirectUri = 'https://zorro1rr.github.io/Grooving/';
+// const redirectUri = 'https://zorro1rr.github.io/grooving/';
 const redirectUri = "http://localhost:3000";
 //variable that will hold user's access token
 let accessToken;

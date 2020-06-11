@@ -35,7 +35,7 @@
   background-color: #d2d1cf8a;
   text-align: center;
   font-size: 1rem;
-  transition: background-color 0.25s;
+  transition: background-color 0.5s;
   color: #272727;
   font-weight: 700;
   box-shadow: 5px 5px 10px 0px #252525d1, -3px -3px 10px 1px #ffffffd9;
@@ -47,7 +47,8 @@
 }
 
 .Playlist-save:hover {
-  box-shadow: inset 13px 9px 20px -5px #a0a0a0;
+  background-color: #1ed701;
+  color: #ececec;
 }
 
 ::-webkit-scrollbar {
