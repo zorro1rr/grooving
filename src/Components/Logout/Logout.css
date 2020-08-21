@@ -1,0 +1,27 @@
+.logout {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  height: 3vh;
+  min-height: 20px;
+  cursor: pointer;
+  border-radius: 3px;
+  border-width: 0px;
+  background-color: #282828;
+  text-align: center;
+  font-size: 0.83rem;
+  transition: background-color 0.25s;
+  color: #ececec;
+  font-weight: 400;
+  box-shadow: -1px -1px 3px rgba(255, 255, 255, 0.48),
+    2px 2px 6px rgba(0, 0, 0, 0.8);
+  font-family: "Open Sans", sans-serif;
+}
+
+.logout:hover {
+  color: #d7d2ce;
+  background: #ba261c;
+  border-color: #ba261c;
+  transition: all 0.4s ease 0s;
+  box-shadow: none;
+}
