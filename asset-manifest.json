@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/grooving/static/css/main.ad51313c.chunk.css",
+    "main.js": "/grooving/static/js/main.50051918.chunk.js",
+    "main.js.map": "/grooving/static/js/main.50051918.chunk.js.map",
+    "runtime-main.js": "/grooving/static/js/runtime-main.addb91ec.js",
+    "runtime-main.js.map": "/grooving/static/js/runtime-main.addb91ec.js.map",
+    "static/js/2.cc06fb84.chunk.js": "/grooving/static/js/2.cc06fb84.chunk.js",
+    "static/js/2.cc06fb84.chunk.js.map": "/grooving/static/js/2.cc06fb84.chunk.js.map",
+    "index.html": "/grooving/index.html",
+    "precache-manifest.c525418954d3c99c2405d6cb62afa5ca.js": "/grooving/precache-manifest.c525418954d3c99c2405d6cb62afa5ca.js",
+    "service-worker.js": "/grooving/service-worker.js",
+    "static/css/main.ad51313c.chunk.css.map": "/grooving/static/css/main.ad51313c.chunk.css.map",
+    "static/js/2.cc06fb84.chunk.js.LICENSE.txt": "/grooving/static/js/2.cc06fb84.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.addb91ec.js",
+    "static/js/2.cc06fb84.chunk.js",
+    "static/css/main.ad51313c.chunk.css",
+    "static/js/main.50051918.chunk.js"
+  ]
+}
