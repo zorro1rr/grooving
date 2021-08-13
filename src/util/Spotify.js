@@ -1,7 +1,7 @@
 //variables for client ID and redirect URI
 const clientId = process.env.REACT_APP_CLIENTID;
 // const redirectUri = 'https://zorro1rr.github.io/Grooving/';
-const redirectUri = "http://localhost:3000";
+const redirectUri = "http://localhost:3000/";
 //variable that will hold user's access token
 let accessToken;
 
@@ -169,14 +169,6 @@ const Spotify = {
       playlistArr.push(trackArr);
     });
 
-    // for (let i = 0; i < playlistNames.length; i++) {
-    //   let playlistAr = [];
-    //   playlistAr.push(playlistNames[i], playlistTracks[i]);
-    //   playlistArr.push(playlistAr);
-    // }
-    // console.log('playlist Object made from names and tracks, to be returned to App.js', playlistObject);
-    // return  playlistObject;
-    // console.log('playlistArr', playlistArr)
     return playlistArr;
   },
 
